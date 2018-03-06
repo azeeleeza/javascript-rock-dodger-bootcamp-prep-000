@@ -12,69 +12,70 @@ const START = document.getElementById('start')
 
 var gameInterval = null
 
-
 function checkCollision(rock) {
 
-  const top = positionToInteger(rock.style.top)
+    const top = positionToInteger(rock.style.top)
 
+    if (top > 360) {
+        const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
+        const dodgerRightEdge = dodgerLeftEdge + 40
 
-  if (top > 360) {
-    const dodgerLeftEdge = positionToInteger(DODGER.style.left)
+        const rockLeftEdge = positionToInteger(rock.style.left)
 
-    const dodgerRightEdge = dodgerLeftEdge + 40
+        const rockRightEdge = rockLeftEdge + 20;
 
-    const rockLeftEdge = positionToInteger(rock.style.left)
-
-    const rockRightEdge = rockLeftEdge + 20;
-
-
-  }
+        if (rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge ||
+            rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge ||
+            rockLeftEdge < dodgerRightEdge && rockRightEdge > the dodgerRightEdge) {
+          return true
+        }
+    }
 }
 
 function createRock(x) {
-  const rock = document.createElement('div')
+    const rock = document.createElement('div')
 
-  rock.className = 'rock'
-  rock.style.left = `${x}px`
+    rock.className = 'rock'
+    rock.style.left = `${x}px`
 
-  var top = 0
+    var top = 0
 
-  rock.style.top = top
+    rock.style.top = top
 
-   GAME.appendChild(rock)
-
-
-  function moveRock() {
-  rock.style.top = `${top += 2}px`;
-
-     if (checkCollision(rock)) {
-           return endGame()
-         } else if (top < GAME_HEIGHT) {
-           window.requestAnimationFrame(moveRock)
-         } else {
-           rock.remove()
-         }
-       }
+    GAME.appendChild(rock)
 
 
+    function moveRock() {
+        rock.style.top = `${top += 2}px`;
 
-  window.requestAnimationFrame(moveRock)
+        if (checkCollision(rock)) {
+            return endGame()
+        } else if (top < GAME_HEIGHT) {
+            window.requestAnimationFrame(moveRock)
+        } else {
+            rock.remove()
+        }
+    }
 
 
-  ROCKS.push(rock)
 
-  return rock
+    window.requestAnimationFrame(moveRock)
+
+
+    ROCKS.push(rock)
+
+    return rock
 }
 
 
 function endGame() {
-  clearInterval(gameInterval)
-  for(let i=0;i<ROCKS.length;i++){
-    ROCKS[i].remove()
-  }
-  window.removeEventListener('keydown', moveDodger)
-  return alert('YOU LOSE!')
+    clearInterval(gameInterval)
+    for (let i = 0; i < ROCKS.length; i++) {
+        ROCKS[i].remove()
+    }
+    window.removeEventListener('keydown', moveDodger)
+    return alert('YOU LOSE!')
 
 }
 
@@ -82,34 +83,33 @@ function endGame() {
 
 function moveDodger(e) {
 
-  const arrow = e.which
+    const arrow = e.which
 
-
-   if (arrow === LEFT_ARROW) {
-  moveDodgerLeft()
-} else if (arrow === RIGHT_ARROW) {
-  moveDodgerRight()
-}
+    if (arrow === LEFT_ARROW) {
+        moveDodgerLeft()
+    } else if (arrow === RIGHT_ARROW) {
+        moveDodgerRight()
+    }
 }
 
 function moveDodgerLeft() {
-   window.requestAnimationFrame(function() {
-   const left = positionToInteger(DODGER.style.left)
+    window.requestAnimationFrame(function() {
+        const left = positionToInteger(DODGER.style.left)
 
-   if (left > 0) {
-     DODGER.style.left = `${left - 4}px`;
-   }
- })
+        if (left > 0) {
+            DODGER.style.left = `${left - 4}px`;
+        }
+    })
 }
 
 function moveDodgerRight() {
-   window.requestAnimationFrame(function() {
-    const left = positionToInteger(DODGER.style.left)
+    window.requestAnimationFrame(function() {
+        const left = positionToInteger(DODGER.style.left)
 
-    if (left < 360) {
-      DODGER.style.left = `${left + 4}px`;
-    }
-  })
+        if (left < 360) {
+            DODGER.style.left = `${left + 4}px`;
+        }
+    })
 }
 
 /**
@@ -117,15 +117,15 @@ function moveDodgerRight() {
  * @returns {number} The position as an integer (without 'px')
  */
 function positionToInteger(p) {
-  return parseInt(p.split('px')[0]) || 0
+    return parseInt(p.split('px')[0]) || 0
 }
 
 function start() {
-  window.addEventListener('keydown', moveDodger)
+    window.addEventListener('keydown', moveDodger)
 
-  START.style.display = 'none'
+    START.style.display = 'none'
 
-  gameInterval = setInterval(function() {
-    createRock(Math.floor(Math.random() *  (GAME_WIDTH - 20)))
-  }, 1000)
+    gameInterval = setInterval(function() {
+        createRock(Math.floor(Math.random() * (GAME_WIDTH - 20)))
+    }, 1000)
 }
