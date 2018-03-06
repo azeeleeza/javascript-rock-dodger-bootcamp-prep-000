@@ -22,13 +22,24 @@ function checkCollision(rock) {
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
-    const dodgerRightEdge = dodgerLeftEdge + 40
+    const dodgerRightEdge = dodgerLeftEdge + 20
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
     const rockRightEdge = rockLeftEdge + 20;
 
-
+    // if (false /**
+    //            * Think about it -- what's happening here?
+    //            * There's been a collision if one of three things is true:
+    //            * 1. The rock's left edge is < the DODGER's left edge,
+    //            *    and the rock's right edge is > the DODGER's left edge;
+    //            * 2. The rock's left edge is > the DODGER's left edge,
+    //            *    and the rock's right edge is < the DODGER's right edge;
+    //            * 3. The rock's left edge is < the DODGER's right edge,
+    //            *    and the rock's right edge is > the DODGER's right edge
+    //            */) {
+    //   return true
+    // }
     return (
       (rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
       (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
@@ -62,7 +73,7 @@ function createRock(x) {
          }
        }
 
-  }
+  
 
   window.requestAnimationFrame(moveRock)
 
