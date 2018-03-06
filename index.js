@@ -87,12 +87,12 @@ function moveDodger(e) {
     const arrow = e.which
 
     if (arrow === LEFT_ARROW) {
-      
+
         e.preventDefault()
         e.stopPropagation()
         moveDodgerLeft()
     } else if (arrow === RIGHT_ARROW) {
-      
+
         e.preventDefault()
         e.stopPropagation()
         moveDodgerRight()
