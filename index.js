@@ -22,7 +22,7 @@ function checkCollision(rock) {
   if (top > 360) {
     const dodgerLeftEdge = positionToInteger(DODGER.style.left)
 
-    const dodgerRightEdge = dodgerLeftEdge + 20
+    const dodgerRightEdge = dodgerLeftEdge + 40
 
     const rockLeftEdge = positionToInteger(rock.style.left)
 
@@ -73,7 +73,7 @@ function createRock(x) {
          }
        }
 
-  
+
 
   window.requestAnimationFrame(moveRock)
 
@@ -105,10 +105,6 @@ function moveDodger(e) {
 
   const arrow = e.which
 
-  if ([LEFT_ARROW, RIGHT_ARROW].indexOf(arrow) > -1) {
-     e.preventDefault()
-     e.stopPropagation()
-   }
 
    if (arrow === LEFT_ARROW) {
   moveDodgerLeft()
