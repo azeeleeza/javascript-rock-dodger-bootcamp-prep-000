@@ -85,8 +85,8 @@ function createRock(x) {
 
 
 function endGame() {
-  return alert('YOU LOSE!')
   clearInterval(gameInterval)
+  return alert('YOU LOSE!')
 
   for(let i=0;i<ROCKS.length;i++){
     ROCKS[i].remove()
