@@ -25,9 +25,9 @@ function checkCollision(rock) {
 
         const rockRightEdge = rockLeftEdge + 20;
 
-        if ((rockLeftEdge <= dodgerLeftEdge && rockRightEdge >= dodgerLeftEdge) ||
-            (rockLeftEdge >= dodgerLeftEdge && rockRightEdge <= dodgerRightEdge) ||
-            (rockLeftEdge <= dodgerRightEdge && rockRightEdge >= dodgerRightEdge)) {
+        if ((rockLeftEdge < dodgerLeftEdge && rockRightEdge > dodgerLeftEdge) ||
+            (rockLeftEdge > dodgerLeftEdge && rockRightEdge < dodgerRightEdge) ||
+            (rockLeftEdge < dodgerRightEdge && rockRightEdge > dodgerRightEdge)) {
             return true
         }else{
           return false
@@ -84,7 +84,7 @@ function endGame() {
 
 
 function moveDodger(e) {
-
+  e.preventDefault().stopPropagation()
     const arrow = e.which
 
     if (arrow === LEFT_ARROW) {
