@@ -84,7 +84,8 @@ function endGame() {
 
 
 function moveDodger(e) {
-  e.preventDefault().stopPropagation()
+  e.preventDefault()
+  e.stopPropagation()
     const arrow = e.which
 
     if (arrow === LEFT_ARROW) {
