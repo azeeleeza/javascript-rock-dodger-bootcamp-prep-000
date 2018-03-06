@@ -54,68 +54,41 @@ function createRock(x) {
   rock.className = 'rock'
   rock.style.left = `${x}px`
 
-  // Hmmm, why would we have used `var` here?
   var top = 0
 
   rock.style.top = top
 
-  /**
-   * Now that we have a rock, we'll need to append
-   * it to GAME and move it downwards.
-   */
    GAME.appendChild(rock)
 
 
-  /**
-   * This function moves the rock. (2 pixels at a time
-   * seems like a good pace.)
-   */
   function moveRock() {
   rock.style.top = `${top += 2}px`;
-    /**
-     * If a rock collides with the DODGER,
-     * we should call endGame()
-     */
+  
      if (checkCollision(rock)) {
            return endGame()
-         }
-    /**
-     * Otherwise, if the rock hasn't reached the bottom of
-     * the GAME, we want to move it again.
-     */
-     if (top < GAME_HEIGHT) {
+         } else if (top < GAME_HEIGHT) {
            window.requestAnimationFrame(moveRock)
          } else {
            rock.remove()
          }
        }
-    /**
-     * But if the rock *has* reached the bottom of the GAME,
-     * we should remove the rock from the DOM
-     */
+
   }
 
-  // We should kick of the animation of the rock around here
   window.requestAnimationFrame(moveRock)
 
-  // Add the rock to ROCKS so that we can remove all rocks
-  // when there's a collision
+
   ROCKS.push(rock)
 
-  // Finally, return the rock element you've created
   return rock
 }
 
 /**
- * End the game by clearing `gameInterval`,
- * removing all ROCKS from the DOM,
- * and removing the `moveDodger` event listener.
- * Finally, alert "YOU LOSE!" to the player.
+ * removing all ROCKS from the DOM
  */
 function endGame() {
   clearInterval(gameInterval)
 document.removeEventListener('keydown', moveDodger)
-
 
   return alert('YOU LOSE!')
 }
@@ -131,6 +104,11 @@ function moveDodger(e) {
    */
 
   const arrow = e.which
+
+  if ([LEFT_ARROW, RIGHT_ARROW].indexOf(code) > -1) {
+     e.preventDefault()
+     e.stopPropagation()
+   }
 
    if (arrow === LEFT_ARROW) {
   moveDodgerLeft()
